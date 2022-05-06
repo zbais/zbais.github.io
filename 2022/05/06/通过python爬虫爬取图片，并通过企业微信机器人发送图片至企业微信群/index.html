@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<title>通过python爬虫爬取图片，并通过企业微信机器人发送图片至企业微信群 - Hexo</title>
+    <link rel="alternate" href="" type="application/atom+xml"/>
+	<link rel="shortcut icon" href=""/>
+	
+<link rel="stylesheet" href="/css/style.css">
+
+	
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<meta name="generator" content="Hexo 6.1.0"></head>
+
+<body>
+	<div class="main-con">
+
+        <div class="nav cl">
+    <ul class="cl nav-list">
+        
+            <li>
+                
+                    <a href="/" class="">
+                        <i class="fa fa-home"></i> 
+                        <span>主页</span>
+                    </a>
+                
+            </li>
+        
+            <li>
+                
+                    <a href="/archives/" class="">
+                        <i class=" fa-"></i> 
+                        <span>归档</span>
+                    </a>
+                
+            </li>
+        
+            <li>
+                
+                    
+                    <a href="javascript:void(0)" class="">
+                    
+                        <i class=" fa-"></i> 
+                        <span>关于</span>
+                        <span class="drop-flag fa fa-angle-down"></span>
+                    </a>
+                    <dl>
+                        
+                            <li>
+                                <a href="/about" class="">
+                                    <i class=" fa-"></i>
+                                    <span>关于本站</span>
+                                </a>
+                            </li>
+                        
+                    </dl>
+                
+            </li>
+        
+    </ul>
+    <ul class="cl nav-tool">
+        
+            <li>
+                <a href="/github">
+                    <i class="fa fa-github"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="/mail">
+                    <i class="fa fa-envelope"></i>
+                </a>
+            </li>
+        
+            <li>
+                <a href="/twitter">
+                    <i class="fa fa-twitter"></i>
+                </a>
+            </li>
+        
+        
+        <li>
+            <a href="javascript:void(0)" class="nav-search-btn">
+                <i class="fa fa-search"></i>
+            </a>
+        </li>
+        
+    </ul>
+    <form action="//google.com/search" method="get" accept-charset="UTF-8" class="nav-search"><input type="search" name="q" class="nav-search-input" placeholder="search..."><input type="hidden" name="sitesearch" value="http://example.com"></form>
+</div>
+
+        <header class="top" id="fallEle" style="background-image: url(/imgs/head.jpg)">
+    <i class="fa fa-bars" id="media-toggle" style="display: none"></i>
+    <div class="top-info cl fadeToBottom">
+        <h2 class="site-name"><a href="/">ZBAIS</a> <small id="type-data">This is ZBAIS&#39;s  blog</small></h2>
+    </div>
+</header>
+
+        <div class="con-wrap fadeToTop">
+    
+    <section class="article-area">
+    
+        <article class="article">
+    <div class="article-wrap">
+        
+            <h2 class="article-title cl">
+                通过python爬虫爬取图片，并通过企业微信机器人发送图片至企业微信群
+            </h2>
+        
+
+        <ul class="article-extra" style="margin-bottom: 20px">
+            
+            <li class="article-time">
+                2022-05-06
+            </li>
+            
+
+            
+                
+            
+
+
+        </ul>
+        <div class="article-description">
+            
+            <p>最近学习了一点爬虫，就想着能不能通过企业微信的机器人发送一些图片到微信群中。企业微信机器人说到底就是一个webhook地址，你也可以看成一个URL,而利用企业微信机器人发送图片实则就是向服务器发送post请求，再将响应数据发送到webhook地址，以下是我爬取   <a target="_blank" rel="noopener" href="http://pic.netbian.com/">彼岸图网</a>（<a target="_blank" rel="noopener" href="http://pic.netbian.com)的python爬虫代码,使用的是强大的requests库(scrapy框架还不太会用,就不用了)/">http://pic.netbian.com）的python爬虫代码，使用的是强大的requests库（scrapy框架还不太会用,就不用了）</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> os,re,time,hashlib,base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">head = &#123;</span><br><span class="line">    <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.198 Safari/537.36&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line">start_urls = []     <span class="comment">#定义一个url列表</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">1000</span>):</span><br><span class="line">    <span class="keyword">if</span>(i==<span class="number">1</span>):       </span><br><span class="line">        url = <span class="string">&#x27;http://pic.netbian.com/index.html&#x27;</span>   <span class="comment">#判断是否为首页，并加入url列表中</span></span><br><span class="line">        start_urls.append(url)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        url = <span class="string">&#x27;http://pic.netbian.com/index_&#x27;</span>+<span class="built_in">str</span>(i)+<span class="string">&#x27;.html&#x27;</span>    <span class="comment">#判断是否为非首页，并加入url列表中</span></span><br><span class="line">        start_urls.append(url)</span><br><span class="line">i = <span class="number">1</span>   <span class="comment">#为了将图片每二十张放入到不同的文件夹</span></span><br><span class="line">url1=<span class="string">&#x27;https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx&#x27;</span> <span class="comment">#自己的webhoook地址</span></span><br><span class="line"><span class="keyword">for</span> url <span class="keyword">in</span> start_urls:              <span class="comment">#将url列表url依次取出</span></span><br><span class="line">    response = requests.get(url)        <span class="comment">#向服务器发出get请求，获得响应</span></span><br><span class="line">    response.encoding=<span class="string">&#x27;gbk&#x27;</span>                 <span class="comment">#设置响应的编码格式为GBK</span></span><br><span class="line">    html = response.text                        <span class="comment">#获得相应的文本信息</span></span><br><span class="line">    soup = BeautifulSoup(html,<span class="string">&#x27;lxml&#x27;</span>)               <span class="comment">#通过beautifulsoup库中的lxml HTML 解析器提取数据</span></span><br><span class="line">    result = soup.find(<span class="string">&#x27;ul&#x27;</span>,class_=<span class="string">&quot;clearfix&quot;</span>).find_all(<span class="string">&#x27;img&#x27;</span>)      <span class="comment">#找到&lt;img&gt;标签</span></span><br><span class="line">    </span><br><span class="line">    root = <span class="string">&#x27;D:/page/SpiderImgs/imgs-&#x27;</span>+<span class="built_in">str</span>((i//<span class="number">20</span>)+<span class="number">1</span>)+<span class="string">&#x27;/&#x27;</span>            <span class="comment">#拼接保存的路径  根据自己要保存的路径替换</span></span><br><span class="line">    <span class="keyword">for</span> img <span class="keyword">in</span> result:</span><br><span class="line">        path = root + img[<span class="string">&#x27;src&#x27;</span>].split(<span class="string">&#x27;/&#x27;</span>)[-<span class="number">1</span>] <span class="comment">#获取图片资源名称(http://pic.netbian.com/uploads/allimg/190824/212516-1566653116f355.jpg中的212516-1566653116f355.jpg)并拼接保存路径</span></span><br><span class="line">        url = <span class="string">&#x27;http://pic.netbian.com&#x27;</span>+img[<span class="string">&#x27;src&#x27;</span>]   <span class="comment">#拼接图片的url</span></span><br><span class="line">        r = requests.get(url, headers=head)         <span class="comment">#发送get请求图片资源</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> os.path.exists(root):                <span class="comment">#判断文件夹是否存在</span></span><br><span class="line">            os.makedirs(root)                       <span class="comment">#创建新的文件夹</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">with</span> <span class="built_in">open</span> (path,<span class="string">&#x27;wb+&#x27;</span>) <span class="keyword">as</span> f:            <span class="comment">#创建一个文件以二进制写</span></span><br><span class="line">                f.write(r.content)                  <span class="comment">#将请求服务器图片资源的响应结果写进文件中</span></span><br><span class="line">                f.close()</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;图片 &quot;</span>+<span class="built_in">str</span>(i)+<span class="string">&quot;.jpg 保存成功&quot;</span>)</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="keyword">with</span> <span class="built_in">open</span>(path,<span class="string">&#x27;rb&#x27;</span>) <span class="keyword">as</span> f:              <span class="comment">#以读二进制的方式打开文件</span></span><br><span class="line">                base64_data = base64.b64encode(f.read()).decode() <span class="comment">#获取base64编码</span></span><br><span class="line">            file = <span class="built_in">open</span>(path,<span class="string">&#x27;rb&#x27;</span>)              </span><br><span class="line">            md = hashlib.md5()</span><br><span class="line">            md.update(file.read())</span><br><span class="line">            res1 = md.hexdigest()       <span class="comment">#获取图片内容的md5值</span></span><br><span class="line">            data = &#123;</span><br><span class="line">                <span class="string">&quot;msgtype&quot;</span> : <span class="string">&#x27;image&#x27;</span>,</span><br><span class="line">                <span class="string">&quot;image&quot;</span>:&#123;</span><br><span class="line">                    <span class="string">&quot;base64&quot;</span>:base64_data,</span><br><span class="line">                    <span class="string">&quot;md5&quot;</span>:res1</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;               <span class="comment">#JSON数据格式</span></span><br><span class="line">            t = requests.post(url1, headers=head, json=data) <span class="comment">#发送post请求</span></span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;异常&quot;</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">        i = i + <span class="number">1</span>                       <span class="comment">#文件夹名称加一</span></span><br><span class="line">    time.sleep(<span class="number">3</span>)                       <span class="comment">#让程序睡3秒</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>以上代码有任何问题或不懂可在评论区留言，</p>
+
+        </div>
+        
+        
+        
+        <div class="article-tags">
+            <ul class="tags-list cl">
+                
+            </ul>
+        </div>
+        
+        <div class="article-pagination cl">
+        
+            <div class="pagination-prev">
+                <a href="/2022/05/06/%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E7%AC%AC%E5%85%AD%E7%89%88%E7%AD%94%E6%A1%88%E4%B8%8E%E8%A7%A3%E6%9E%90-%E3%80%8A%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E9%99%84%E5%86%8C%E5%AD%A6%E4%B9%A0%E8%BE%85%E5%AF%BC%E4%B8%8E%E4%B9%A0%E9%A2%98%E5%85%A8%E8%A7%A3%E3%80%8B/">工程数学线性代数第六版答案与解析,《线性代数附册学习辅导与习题全解》</a>
+            </div>
+        
+        
+            <div class="pagination-next">
+                <a href="/2022/05/06/idea-java-%E7%A8%8B%E5%BA%8F%E5%8C%85%C3%97%C3%97%C3%97-%C3%97%C3%97%C3%97%C3%97-%C3%97%C3%97%E4%B8%8D%E5%AD%98%E5%9C%A8%E3%80%82%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%EF%BC%8C/">idea java:程序包×××.××××.××不存在。解决方法，</a>
+            </div>
+        
+        </div>
+
+        
+    </div>
+</article>
+
+    </section>
+    
+<section class="tool-area">
+
+    <div class="toolbar">
+        
+
+        
+        <div class="widget-post widget" style="order: 1 ">
+            <h2 class="widget-title"><i class="fa fa-file-text"></i> Recent articles</h2>
+            <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2022/05/06/%E5%A4%A7%E5%AD%A6%E7%89%A9%E7%90%86-%E4%B9%A0%E9%A2%98%E5%88%86%E6%9E%90%E4%B8%8E%E8%A7%A3%E7%AD%94%EF%BC%88PDF%EF%BC%89/">大学物理 习题分析与解答（PDF）</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/05/06/%E8%A6%81%E6%B1%82%E6%8C%89%E7%85%A7%E8%80%83%E8%AF%95%E6%88%90%E7%BB%A9%E7%AD%89%E7%BA%A7%E8%BE%93%E5%87%BA%E7%99%BE%E5%88%86%E5%88%B6%E5%88%86%E6%95%B0%E6%AE%B5%EF%BC%8CA%E7%AD%89%E4%B8%BA85%E5%88%86%E4%BB%A5%E4%B8%8A%EF%BC%8CB%E7%AD%89%E4%B8%BA70-84%E5%88%86%EF%BC%8CC%E7%AD%89%E4%B8%BA60-69%E5%88%86%EF%BC%8CD%E7%AD%89%E4%B8%BA60%E5%88%86%E4%BB%A5%E4%B8%8B%E3%80%82%E6%88%90%E7%BB%A9%E7%AD%89%E7%BA%A7%E7%94%B1%E9%94%AE%E7%9B%98%E8%BE%93%E5%85%A5/">要求按照考试成绩等级输出百分制分数段，A等为85分以上，B等为70-84分，C等为60~69分，D等为60分以下。成绩等级由键盘输入</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/05/06/%E5%B7%A5%E7%A8%8B%E6%95%B0%E5%AD%A6%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E7%AC%AC%E5%85%AD%E7%89%88%E7%AD%94%E6%A1%88%E4%B8%8E%E8%A7%A3%E6%9E%90-%E3%80%8A%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0%E9%99%84%E5%86%8C%E5%AD%A6%E4%B9%A0%E8%BE%85%E5%AF%BC%E4%B8%8E%E4%B9%A0%E9%A2%98%E5%85%A8%E8%A7%A3%E3%80%8B/">工程数学线性代数第六版答案与解析,《线性代数附册学习辅导与习题全解》</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/05/06/%E9%80%9A%E8%BF%87python%E7%88%AC%E8%99%AB%E7%88%AC%E5%8F%96%E5%9B%BE%E7%89%87%EF%BC%8C%E5%B9%B6%E9%80%9A%E8%BF%87%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%8F%91%E9%80%81%E5%9B%BE%E7%89%87%E8%87%B3%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E7%BE%A4/">通过python爬虫爬取图片，并通过企业微信机器人发送图片至企业微信群</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/05/06/idea-java-%E7%A8%8B%E5%BA%8F%E5%8C%85%C3%97%C3%97%C3%97-%C3%97%C3%97%C3%97%C3%97-%C3%97%C3%97%E4%B8%8D%E5%AD%98%E5%9C%A8%E3%80%82%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95%EF%BC%8C/">idea java:程序包×××.××××.××不存在。解决方法，</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/05/06/python%E7%88%AC%E8%99%AB%E4%BD%BF%E7%94%A8selenium%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%EF%BC%88%E4%B8%8B%E6%8B%89%E5%8A%A0%E8%BD%BD%EF%BC%89%E7%88%AC%E5%8F%96%E5%8F%96%E7%8E%AF%E7%90%83%E7%BD%91%E7%96%AB%E6%83%85%E6%96%B0%E9%97%BB%E6%A0%87%E9%A2%98%E5%92%8C%E9%93%BE%E6%8E%A5%EF%BC%8C/">python爬虫使用selenium动态加载（下拉加载）爬取取环球网疫情新闻标题和链接，</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/05/06/elasticsearch%E5%AE%89%E8%A3%85elasticsearch-analysis-ik%E4%B8%AD%E6%96%87%E5%88%86%E8%AF%8D%E6%8F%92%E4%BB%B6%EF%BC%8C%E7%BD%91%E9%80%9F%E5%A4%AA%E6%85%A2%EF%BC%8C%E7%89%88%E6%9C%AC%E9%97%AE%E9%A2%98%E3%80%81%E5%AE%89%E8%A3%85%E5%A4%B1%E8%B4%A5%E8%A7%A3%E5%86%B3%E6%80%9D%E8%B7%AF/">elasticsearch安装elasticsearch-analysis-ik中文分词插件，网速太慢，版本问题、安装失败解决思路</a></li><li class="post-list-item"><a class="post-list-link" href="/2022/05/05/hello-world/">hello-world</a></li></ul>
+        </div>
+        
+
+        
+        <div class="widget-tags widget" style="order: 2 ">
+            <h2 class="widget-title"><i class="fa fa-tags"></i> Tag</h2>
+            
+        </div>
+        
+
+        
+        <div class="widget-categories widget" style="order: 3 ">
+            <h2 class="widget-title"><i class="fa fa-folder-open"></i> Categories</h2>
+            
+        </div>
+        
+
+    </div>
+</section>
+</div>
+
+    
+        <footer class="footer">
+	<p class="footer-intro">
+		
+		@2022 Hexo.
+	</p>
+	<p class="footer-intro">
+			Powered By <a href="https://hexo.io/zh-cn/" target="_blank">hexo</a>
+			theme <a href="https://github.com/iengu/hexo-theme-mokusei" target="_blank">mokusei</a> by <a href="https://www.iengu.com" target="blank">iengu</a>
+	</p>
+</footer>
+
+
+
+
+        <div class="extend-tools" id="extend-tools" style="display: none;">
+    <ul>
+        <li class="tools-returnTop" title="Back to top"><i class="fa fa-angle-double-up"></i></li>
+    </ul>
+</div>
+
+	</div>
+
+	
+<script src="/js/org/jquery.min.js"></script>
+
+    
+<script src="/js/extend.js"></script>
+
+</body>
+</html>
